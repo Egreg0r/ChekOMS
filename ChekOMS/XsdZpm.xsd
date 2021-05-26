@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<xs:schema xmlns="XSDChekOMS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="XSDChekOMS.xsd" elementFormDefault="qualified" id="ZPMXXXXX">
+	<xs:element name="ZPLIST">
+		<xs:annotation>
+			<xs:documentation>Главный элемент содержащий информацию о направителе</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ZP" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="FILENAME" type="xs:string" use="required"/>
+			<xs:attribute name="OTPR" type="xs:string" use="required" fixed="LPU"/>
+			<xs:attribute name="OTPRCOD" type="xs:int" use="required" fixed="25200"/>
+			<xs:attribute name="NRECORDS" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			
+			<xs:attribute name="DZP" type="xs:date" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ZP">
+		<xs:annotation>
+			<xs:documentation> Элемент содержащий информацио о проверяемом лице</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="PERSON"/>
+				<xs:element ref="DOC"/>
+				<xs:element ref="POLIS"/>
+			</xs:sequence>
+			<xs:attribute name="N_REC">
+				<xs:simpleType>
+					<xs:restriction base="xs:ID">
+						<xs:maxLength value="3"/> <xs:pattern value="[0-9]*"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PERSON">
+		<xs:complexType>
+			<xs:attribute name="ENP" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9]{8}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="FAM" type="xs:string" use="required"/>
+			<xs:attribute name="IM" type="xs:string" use="required"/>
+			<xs:attribute name="OT" type="xs:string"/>
+			<xs:attribute name="W" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:int"><xs:pattern value="1|2"/></xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="DR" type="xs:date" use="required"/>
+			<xs:attribute name="SS">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9] [0-9][0-9]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DOC">
+		<xs:complexType>
+			<xs:attribute name="DOCTYPE"  use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"> <xs:maxLength value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="DOCSER" type="xs:string" use="required"/>
+			<xs:attribute name="DOCNUM" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"> <xs:maxLength value="10"/></xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="MR" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="POLIS">
+		<xs:complexType>
+			<xs:attribute name="TPOL" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+						<xs:enumeration value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="SPOL" type="xs:string" use="required"/>
+			<xs:attribute name="NPOL" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"> <xs:pattern value="[0-9]*"/></xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
